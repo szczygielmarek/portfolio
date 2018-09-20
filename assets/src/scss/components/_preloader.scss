@@ -1,0 +1,126 @@
+//https://markus.oberlehner.net/blog/vue-router-page-transitions/
+
+.pre-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $black;
+    z-index: 3;
+    //transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.transition-leave {
+    .pre-loader {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+.transition-leave-active {
+    .pre-loader {
+        transition: opacity 0.4s ease-in, visibility 0.4s ease-in;
+    }
+}
+.transition-leave-to {
+    .pre-loader {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+// .transition-leave {
+//     .pre-loader {
+//         transform: translateY(-100%);
+//     }
+// }
+// .transition-leave-active {
+//     .pre-loader {
+//         transition: all 0.25s $cubic-bezier;
+//     }
+// }
+// .transition-leave-to {
+//     .pre-loader {
+//         transform: translateY(0);
+//     }
+// }
+
+// .transition-enter {
+//     .pre-loader {
+//         transform: translateY(0);
+//         background-color: $primary;
+//     }
+// }
+// .transition-enter-active {
+//     .pre-loader {
+//         transition: all 0.25s $cubic-bezier;
+//     }
+// }
+// .transition-enter-to {
+//     .pre-loader {
+//         transform: translateY(100%);
+//         background-color: $primary;
+//     }
+// }
+
+
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $black;
+    z-index: 2;
+
+    // transform: translateY(100%);
+    // transition: transform 0.25s $cubic-bezier 0.8s;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease-out 0.4s, visibility 0.6s ease-out 0.4s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loader--active {
+    // transform: translateY(0);
+    // transition: transform 0.25s $cubic-bezier 0.4s;
+
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.6s ease-out 0.4s, visibility 0.6s ease-out 0.4s;
+}
+
+
+.no-preload {
+    .pre-loader, .loader {
+        display: none !important;
+    }
+}
+
+.sprite {
+    width: 50px;
+    height: 65px;
+
+    background-image: url(./../images/goldfinch_sprite.png);
+    background-position: center top;
+    background-size: 50px 260px;
+    background-repeat: no-repeat;
+
+    animation: sprite 0.4s steps(4) infinite;
+}
+
+@keyframes sprite {
+    100% {
+        background-position: center -260px;
+    }
+}

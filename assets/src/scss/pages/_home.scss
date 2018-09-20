@@ -1,0 +1,102 @@
+.p-home {
+    padding-top: 0;
+}
+
+.p-home__icon-bg {
+    font-size: rem-calc(200);
+    color: rgba(255, 255, 255, 0.4);
+
+    @include media-breakpoint-up(sm) {
+        font-size: rem-calc(250)
+    }
+    @include media-breakpoint-up(md) {
+        font-size: rem-calc(350);
+    }
+}
+
+
+
+/*** QUOTE ***/
+// $quote-color: rgba(255, 255, 255, 0.7);
+// $quote-padding: rem-calc(20);
+// .p-home-quote {
+//     border-left: 3px solid $black;
+//     overflow: hidden;
+//     color: $black;
+//     quotes: "\201C""\201D""\2018""\2019";
+//     &:after {
+//         content: open-quote;
+//         font-size: 5em;
+//         line-height: 0.1em;
+//         vertical-align: -0.4em;
+//         position: absolute;
+//         top: rem-calc(20);
+//         left: rem-calc(20);
+//         font-weight: 300;
+//     }
+// }
+// .p-home-quote__text {
+//     animation-name: slide;
+//     animation-duration: 1s;
+//     animation-delay: 1s;
+//     animation-timing-function: ease-in;
+//     animation-fill-mode: backwards;
+
+//     margin: 0;
+//     padding: $quote-padding;
+    
+//     background-color: $quote-color;
+
+//     font-size: rem-calc(14);
+//     font-weight: 300;
+//     font-style: italic;
+// }
+// .p-home-quote__author {
+//     display: block;
+//     font-size: rem-calc(12);
+//     font-style: normal;
+//     text-align: right;
+//     position: absolute;
+//     left: $quote-padding;
+//     right: $quote-padding;
+//     bottom: $quote-padding;
+// }
+
+// @keyframes slide {
+//     0% {
+//         transform: translateX(-100%);
+//         color: rgba(0, 0, 0, 0);
+//     }
+//     100% {
+//         transform: translateX(0);
+//         color: rgba(0, 0, 0, 1);
+//     }
+// }
+
+/*** CONTACT ***/
+// $contact-icon-margin: rem-calc(3);
+// .p-home-contact {
+//     display: flex;
+
+//     margin-left: 0;
+//     margin-right: -$contact-icon-margin;
+// }
+// .p-home-contact__icon {
+//     width: rem-calc(45);
+//     height: rem-calc(45);
+
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+    
+//     margin-left: $contact-icon-margin;
+//     margin-right: $contact-icon-margin;;
+
+//     color: $black;
+//     background-color: rgba(255, 255, 255, 0.5);
+//     font-size: rem-calc(20);
+
+//     &:hover {
+//         color: $black;
+//     }
+// }

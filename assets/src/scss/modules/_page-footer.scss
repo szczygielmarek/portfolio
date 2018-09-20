@@ -1,0 +1,41 @@
+.m-page-footer {
+    background-color: $dark;
+    color: $gray-300;
+    text-transform: none;
+
+    p {
+        text-transform: none;
+    }
+
+    a {
+        color: inherit;
+
+        &:hover {
+            color: $black;
+        }
+    }
+
+    @include media-breakpoint-up(sm) {
+        br {
+            display: none;
+        }
+    }
+}
+
+.m-page-footer--menu {
+    background-color: transparent;
+    margin-left: -$container-padding-small;
+    margin-right: -$container-padding-small;
+    border-top: 1px solid $gray-300;
+
+    @include media-breakpoint-up(md) {
+        margin-left: -$container-padding;
+        margin-right: -$container-padding;
+    }
+
+    a {
+        &:hover {
+            color: $secondary;
+        }
+    }
+}

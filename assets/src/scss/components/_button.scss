@@ -1,0 +1,49 @@
+%button {
+    display: inline-block;
+    padding-top: rem-calc(16);
+    padding-bottom: rem-calc(16);
+    padding-left: rem-calc(50);
+    padding-right: rem-calc(50);
+
+    font-size: 0.875rem;
+    line-height: 1;
+    text-transform: uppercase;
+
+    transition: background-color 0.3s;
+}
+
+.c-button {
+    @extend %button;
+}
+
+@each $name, $color in $theme-colors {
+    .c-button--#{$name} {
+        
+        @if $name == "black" {
+            color: $white;
+            &:hover {
+                color: $secondary;
+            }
+        }
+        @else if $name == "dark" {
+            color: $white;
+            &:hover {
+                color: $secondary;
+            }
+        }
+        @else if $name == "primary" {
+            color: $white;
+            &:hover {
+                color: $black;
+            }
+        }
+        @else {
+            color: $black;
+        }
+        
+        background-color: transparentize($color, 0);
+        &:hover {
+            background-color: transparentize($color, 0.1);
+        }
+    }
+}

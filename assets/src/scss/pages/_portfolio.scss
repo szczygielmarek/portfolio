@@ -1,0 +1,118 @@
+.p-portfolio {
+    
+}
+.p-portfolio__content {
+    padding-top: 0;
+}
+.p-portfolio__overlay {
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2));
+}
+
+
+.c-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.c-slider--clip .c-slider__slide {
+    transition: clip 0.6s cubic-bezier(0.84, 0.44, 0.165, 0.84);
+}
+
+.c-slider__wrapper {
+    padding: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.c-slider__slide {
+    @include overlay;
+    overflow: hidden;
+
+    clip: rect(0px, 0vw, 100vh, 0px);
+}
+.c-slider__slide--next {
+    clip: rect(0px, 100vw, 100vh, 0px);
+}
+
+.c-slider__img {
+    object-fit: cover;
+    object-position: top center;
+    width: 100%;
+    height: 100%;
+
+    transform: scale(1.05);
+    transition: transform 1s $cubic-bezier;
+
+    // .c-slider__slide:hover & {
+    //     transform: scale(1);
+    //     transition: transform 0.3s $cubic-bezier;
+    // }
+}
+
+.c-slider__arrow {
+    z-index: 0;
+    position: absolute;
+    top: 50%;
+    right: $container-padding;
+
+    width: rem-calc(50);
+    height: rem-calc(50);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    border: 1px solid transparent;
+    color: $white;
+    background-color: transparent;
+
+    &:hover {
+        border-color: $white;
+    }
+    &:focus {
+        outline: none;
+    }
+}
+.c-slider__arrow--prev {
+    transform: translate3d(0, -50%, 0);
+    left: $container-padding-small;
+    @include media-breakpoint-up(md) {
+        left: $container-padding;
+    }
+}
+.c-slider__arrow--next {
+    transform: translate3d(0, -50%, 0);
+    right: $container-padding-small;
+    @include media-breakpoint-up(md) {
+        right: $container-padding;
+    }
+}
+
+.c-slider__headline {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+
+    color: rgba(255, 255, 255, 0.2);
+
+    font-size: 4rem;
+    @include media-breakpoint-up(md) {
+        font-size: 12rem;
+    }
+    @include media-breakpoint-up(lg) {
+        font-size: 20vh;
+    }
+    @include media-breakpoint-up(xl) {
+        font-size: 30vh;
+    }
+}
+
+.c-slider__cta {
+    position: relative;
+    margin-bottom: $container-padding;
+    text-align: center;
+    text-transform: uppercase;
+    color: $white;
+}

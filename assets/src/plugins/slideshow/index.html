@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>JS Slideshow</title>
+
+  <link rel="stylesheet" href="dist/css/slideshow.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <div id="slideshow-1" 
+    class="slideshow slideshow--fade" 
+    data-pagination="true">
+    <div class="slideshow__slide" style="background-image: url(images/gallery_01.jpg)">
+      <div class="centered">
+        <h2>
+          Fade Effect
+        </h2>
+      </div>
+    </div>
+    <div class="slideshow__slide" style="background-image: url(images/gallery_02.jpg)">
+      <div class="centered">
+        <h2>
+          Fade Effect
+        </h2>
+      </div>
+    </div>
+    <div class="slideshow__slide" style="background-image: url(images/gallery_03.jpg)">
+      <div class="centered">
+        <h2>
+          Fade Effect
+        </h2>
+      </div>
+    </div>
+    <div class="slideshow__slide" style="background-image: url(images/gallery_04.jpg)">
+      <div class="centered">
+        <h2>
+          Fade Effect
+        </h2>
+      </div>
+    </div>
+  </div>
+
+  <div id="slideshow-2" 
+    class="slideshow slideshow--slide"
+    data-autoplay="true"
+    data-nav="true"
+    data-pagination="true">
+    <div class="slideshow__slide" style="background-image: url(images/gallery_01.jpg)">
+      <div class="centered">
+        <h2>
+          Slide Effect
+        </h2>
+      </div>
+    </div>
+    <div class="slideshow__slide" style="background-image: url(images/gallery_02.jpg)">
+      <div class="centered">
+        <h2>
+          Slide Effect
+        </h2>
+      </div>
+    </div>
+    <div class="slideshow__slide" style="background-image: url(images/gallery_03.jpg)">
+      <div class="centered">
+        <h2>
+          Slide Effect
+        </h2>
+      </div>
+    </div>
+    <div class="slideshow__slide" style="background-image: url(images/gallery_04.jpg)">
+      <div class="centered">
+        <h2>
+          Slide Effect
+        </h2>
+      </div>
+    </div>
+  </div>
+
+  <script src="dist/js/slideshow.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+      var sliders = document.querySelectorAll(".slideshow"),
+          slideshows = [];
+
+      slideshows.push(new Slideshow(sliders[0], {
+        animation: "fade"
+      }));
+
+      slideshows.push(new Slideshow(sliders[1]));
+
+    });
+  </script>
+</body>
+</html>

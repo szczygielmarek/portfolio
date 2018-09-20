@@ -1,0 +1,6 @@
+.o-container-padding {
+    padding: $container-padding-small;
+    @include media-breakpoint-up(md) {
+        padding: $container-padding;
+    }
+}
