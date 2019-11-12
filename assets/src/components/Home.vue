@@ -8,7 +8,7 @@
        
         <div class="o-page__content u-overflow-hidden d-flex flex-column justify-content-between">
 
-            <picture-fit v-if="page.featured_image_sizes" :images="page.featured_image_sizes" @imgLoaded="pageLoaded"></picture-fit>
+            <picture-fit v-if="page.featured_image_sizes" :images="page.featured_image_sizes"></picture-fit>
 
             <!-- OVERLAY BG -->
             <div class="o-overlay d-flex align-items-end justify-content-start">
@@ -21,10 +21,16 @@
                     <!-- GRID ICONS -->
                     <grid-icons></grid-icons>
                     
-
                 </div>
             </div>
         
+            <!-- PWA -->
+            <div class="pwa">
+                <a class="" href="https://developers.google.com/web/progressive-web-apps/checklist" title="Progressive Web App" target="_blank" rel="noopener">
+                    Progressive Web App
+                </a>
+            </div>
+
             <!-- FOOTER -->
             <page-footer></page-footer>
 
@@ -34,9 +40,10 @@
 </template>
 
 <script>
+import { SET_LOADING, FETCH_PAGE, SET_PAGE, SET_ABOUT } from './../store/mutation-types';
+import { mapState, mapActions, mapMutations } from 'vuex';
+
 import Page from './../types/Page';
-import PageService from './../services/page.services';
-import { GlobalEvents } from './../global-events.js';
 
 import Footer from './../components/Footer.vue';
 import PictureFit from './../components/PictureFit.vue';
@@ -45,12 +52,17 @@ import GridIcons from './../components/GridIcons.vue';
 export default {
     data () {
         return {
-            pageId: 7, //TODO: set front page id
-            page: new Page(),
-            loading: {
-                type: Boolean,
-                default: true
-            }
+            pageId: 7
+        }
+    },
+    computed: mapState([
+        'page',
+        'loading'
+    ]),
+    watch: {
+        loading(val) {
+            if(!val)
+                this.$store.commit(SET_ABOUT, false);
         }
     },
     components: {
@@ -58,25 +70,24 @@ export default {
         "grid-icons": GridIcons,
         "page-footer": Footer
     },
-    mounted() {        
-        this.fetchPage();
+    beforeCreate() {
+        this.$store.commit(SET_LOADING, true);
     },
-    watch: {
-        '$route': 'fetchPage'
+    mounted() { 
+        this.$store.dispatch(FETCH_PAGE, this.pageId);
+    },
+    beforeDestroy() {
+        this.$store.commit(SET_PAGE, new Page());
+        this.$store.commit(SET_LOADING, true);
     },
     methods: {
-        fetchPage() {
-            PageService
-                .getPage(this.pageId)
-                .then(page => {
-                    this.page = page;
-                });  
-        },
-        pageLoaded() {
-            this.loading = false;
-            //this.$emit('loaded');
-            GlobalEvents.$emit('page-loaded');
-        }
+        ...mapMutations([
+            SET_LOADING,
+            SET_ABOUT
+        ]),
+        ...mapActions([
+           FETCH_PAGE
+        ])
     }
 }
 </script>

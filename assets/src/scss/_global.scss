@@ -1,3 +1,25 @@
+/***
+1) body.menu-open - .o-page__content - scale - 0.3s 0s
+2) .m-menu-modal--visible - opacity - 0.5s 0.4s
+   .transition-layer--opening - opacity - 0.4s 0s
+
+3) .m-menu-modal__img - width 0.3s 0s
+4) .m-menu-modal__img--fade-out ?? > div - opacity - 0.6s 0s
+
+5) .transition-leave - .pre-loader - opacity 0.3s 0s
+6) .transition-enter - .pre-loader - opacity 0.3s 0s
+7) .loader - opacity - 0.6s 0.4s
+8) .loader--active - opacity - 0.6s 0.2s
+
+open about from menu
+    .m-menu-modal__img -> width 0 -> 0.3s
+page loaded
+    body.menu-open -> scale 0 -> 0.2s;
+    .transition-layer--opening -> opacity 0 -> 0.2s;
+    .m-menu-modall--visible -> opacity 0.2s -> 0.4s
+
+*/
+
 html {
     height: 100%;
 }
@@ -66,6 +88,18 @@ a {
         text-decoration: none;
     }
 
+}
+
+ol, ol ol, ul ol {
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    font-weight: 300;
+    @include media-breakpoint-down(md) {
+        list-style-position: inside;
+    }
+}
+p + ol {
+    margin-top: -1rem;
 }
 
 img {
@@ -227,6 +261,28 @@ img {
     }
 }
   
+
+.pwa {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+
+    background-color: $primary;
+    color: #fff;
+    a {
+        color: #fff;
+        font-size: rem-calc(14);
+        display: block;
+        padding: rem-calc(16) rem-calc(0);
+        transition: background-color 0.4s;
+        &:hover {
+            background-color: $black;
+        }
+    }
+}
 
 
 @include media-breakpoint-up(sm) {

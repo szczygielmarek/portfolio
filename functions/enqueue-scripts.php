@@ -7,7 +7,6 @@ function site_scripts() {
     wp_enqueue_script( 'site-js', get_template_directory_uri() . '/assets/dist/main.js', array(), filemtime(get_template_directory() . '/assets/dist'), true );
     wp_localize_script( 'site-js', 'wp', array(
       'rest_url' => rest_url(),
-      // 'rest_url' => 'http://szczygielmarek.pl/wp-json/',
       'site_url' => home_url(),
       'dist_url' => "/portfolio/"
     ));
@@ -21,3 +20,12 @@ function site_scripts() {
     }
 }
 add_action('wp_enqueue_scripts', 'site_scripts', 999);
+
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 ); 
+remove_action( 'admin_print_scripts', 'print_emoji_detection_script' ); 
+remove_action( 'wp_print_styles', 'print_emoji_styles' ); 
+remove_action( 'admin_print_styles', 'print_emoji_styles' );
+function my_deregister_scripts(){
+  wp_deregister_script( 'wp-embed' );
+}
+add_action( 'wp_footer', 'my_deregister_scripts' );

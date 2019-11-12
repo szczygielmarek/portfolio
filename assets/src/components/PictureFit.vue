@@ -7,6 +7,9 @@
 </template>
 
 <script>
+import { SET_LOADING } from './../store/mutation-types';
+import { mapMutations } from 'vuex';
+
 export default {
     data() {
         return {
@@ -30,20 +33,17 @@ export default {
                 });
         }
     },
-    mounted() {
-        this.imgLoad();
+    mounted() {    
+        this.$el.querySelector('img').addEventListener('load', this.handleImgLoad, { once: true });
     },
     methods: {
-        imgLoad() {
-            let { img } = this.$refs;
-
-            img.onload = (e) => {
-                this.$emit('imgLoaded');
-            };
-
-            img.onerror = (e) => {
-                
-            };
+        ...mapMutations([
+            SET_LOADING
+        ]),
+        handleImgLoad(e) {
+            setTimeout(() => {
+                this.$store.commit(SET_LOADING, false);
+            }, 50)
         }
     }
 }

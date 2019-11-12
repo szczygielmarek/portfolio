@@ -11,8 +11,7 @@
             <header-baner v-if="page.featured_image_sizes" 
                 :title="page.title"
                 :className="'p-about__heading'" 
-                :images="page.featured_image_sizes"
-                @pageLoaded="pageLoaded">
+                :images="page.featured_image_sizes">
             </header-baner>
 
             <!-- CONTENT -->
@@ -46,10 +45,10 @@
 </template>
 
 <script>
-import Page from './../types/Page';
-import PageService from './../services/page.services';
+import { SET_LOADING, FETCH_PAGE_BY_SLUG, SET_PAGE, SET_ABOUT } from './../store/mutation-types';
+import { mapState, mapMutations, mapActions } from 'vuex';
 
-import { GlobalEvents } from './../global-events';
+import Page from './../types/Page';
 
 import HeaderBaner from './HeaderBaner.vue';
 import Timeline from './Timeline.vue';
@@ -59,12 +58,19 @@ import Culture from './Culture.vue';
 export default {
     data () {
         return {
-            page: new Page(),
-            sections: {},
-            loading: {
-                type: Boolean,
-                default: true
-            }
+            sections: {}
+        }
+    },
+    computed: {
+        ...mapState([
+            'loading',
+            'page'
+        ])
+    },
+    watch: {
+        loading(val) {
+            if(!val)
+                this.$store.commit(SET_ABOUT, true);
         }
     },
     components: {
@@ -73,25 +79,28 @@ export default {
         "grid-tools": GridTools,
         "culture": Culture
     },
+    beforeCreate() {
+        this.$store.commit(SET_LOADING, true);
+    },
     mounted() {        
         this.fetchPage();
     },
-    watch: {
-        '$route': 'fetchPage'
+    beforeDestroy() {
+        this.$store.commit(SET_PAGE, new Page());
+        this.$store.commit(SET_LOADING, true);
     },
     methods: {
-        fetchPage() {
-            PageService
-                .getPageBySlug('about')
-                .then(page => {
-                    this.page = page;
-                    this.sections = page.acf.sections
-                });  
-        },
-        pageLoaded() {
-            this.loading = false;
-            // this.$emit('loaded');
-            GlobalEvents.$emit('page-loaded', 'about');
+        ...mapMutations([
+            SET_LOADING,
+            SET_PAGE,
+            SET_ABOUT
+        ]),
+        ...mapActions([
+            FETCH_PAGE_BY_SLUG
+        ]),
+        async fetchPage() {
+            await this.$store.dispatch(FETCH_PAGE_BY_SLUG, 'about'); //TODO: get slug from this.$route
+            this.sections = this.page.acf.sections;
         }
     }
 }

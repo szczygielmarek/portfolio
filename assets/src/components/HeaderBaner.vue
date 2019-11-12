@@ -1,6 +1,6 @@
 <template>
     <header class="c-header-baner u-relative">
-        <picture-fit :images="images" @imgLoaded="imageLoaded"></picture-fit>
+        <picture-fit :images="images"></picture-fit>
 
         <h1 ref="heading" class="headlineBg u-relative" :class="[className]">{{ title }}</h1>
     </header>
@@ -48,9 +48,6 @@ export default {
                 heading.style.transform = "";
                 //heading.style.opacity = "";
             }
-        },
-        imageLoaded() {
-            this.$emit('pageLoaded');
         }
     }
 }

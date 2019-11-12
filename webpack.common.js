@@ -7,7 +7,7 @@ const { VueLoaderPlugin } = require('vue-loader');
 module.exports = {
     
     entry: {
-        main: ["babel-polyfill", "./assets/src/index.js"],
+        main: ['babel-polyfill', './assets/src/index.js'],
     },
     output: {
         path: path.resolve(__dirname, 'assets/dist'),
@@ -26,7 +26,7 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env']
+                        presets: ['@babel/preset-env']
                     }
                 }
             },

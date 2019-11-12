@@ -30,7 +30,7 @@
                         @click.prevent="openAbout"
                         class="m-menu-modal__img m-menu-modal__img--fade-out u-relative"
                         :class="{'effect-zoom': !isAbout}"
-                        :style="{backgroundImage: `url(${imageabout})`}"
+                        :style="imgStyles"
                     >
 
                         <div class="o-overlay d-flex align-items-center justify-content-center">
@@ -88,13 +88,15 @@
 </template>
 
 <script>
-import { GlobalEvents } from './../global-events.js';
+import { SET_LOADING } from './../store/mutation-types';
+import { mapState, mapMutations } from 'vuex';
 
 import Footer from './../components/Footer.vue';
 
 export default {
     data() {
         return {
+            imgStyles: null,
             modalWidth: 0,
             modalHeight: 0,
             modalRatio: 0,
@@ -109,27 +111,45 @@ export default {
             type: Boolean,
             default: false
         },
-        imageabout: String,
-        isAbout: Boolean
+        imageabout: String
+    },
+    computed: mapState([
+        'loading',
+        'isAbout'
+    ]),
+    watch: {
+        loading(val) {
+            if(!val) {
+                setTimeout(() => {
+                    this.fadeMenu();
+                }, 300);
+            }
+        },
+        imageabout(val) {
+            if(val) {
+                this.imgStyles = {
+                    backgroundImage: `url(${val})`
+                },
+                this.setBoxImage();
+            }
+        }
     },
     components: {
         "page-footer": Footer
     },
     mounted() {
-        this.setBoxImage();
-
-        GlobalEvents.$on('page-loaded', () => {
-            setTimeout(() => {
-                this.fadeMenu();
-            }, 400);
-        });
+        
     },
     methods: {
+        ...mapMutations([
+            SET_LOADING
+        ]),
         setBoxImage() {
             let { animatedBox, menuModal } = this.$refs;
+            if(!animatedBox) return;
 
             this.boxDimensions = animatedBox.getBoundingClientRect();
-
+                            
             this.modalWidth = menuModal.clientWidth;
             this.modalHeight = menuModal.clientHeight;
             
@@ -175,7 +195,7 @@ export default {
             this.closeMenu();
             setTimeout(() => {
                 layerBg.style.display = "";
-            }, 400);
+            }, 200);
         },
         closeMenu() {
             let { animatedBox } = this.$refs;

@@ -21,16 +21,16 @@
         <menu-modal 
             @close="closeMenu" 
             :imageabout="imageabout" 
-            :isAbout="isabout" 
             :visible="isMenuOpen">
         </menu-modal>
-
+        
     </div>
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+
     import throttle from 'lodash/throttle';
-    import { GlobalEvents } from './../global-events.js';
     import MenuModal from './MenuModal.vue';
     
     export default {
@@ -41,18 +41,23 @@
             }
         },
         props: {
-            imageabout: String,
-            isabout: Boolean
+            imageabout: String
+        },
+        computed: mapState([
+            'loading'
+        ]),
+        watch: {
+            loading(val) {
+                if(!val) {
+                    document.body.classList.remove('menu-open');
+                }
+            }
         },
         components: {
             "menu-modal": MenuModal
         },
         mounted() {
             this.getWebsiteTitle();
-
-            GlobalEvents.$on('page-loaded', () => {
-                document.body.classList.remove('menu-open');
-            });
             
             window.addEventListener('scroll', throttle(this.toggleSticky, 250));
         },

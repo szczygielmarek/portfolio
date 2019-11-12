@@ -11,8 +11,7 @@
             <header-baner v-if="page.featured_image_sizes" 
                 :title="page.title"
                 :className="'p-contact__heading'" 
-                :images="page.featured_image_sizes"
-                @pageLoaded="pageLoaded">
+                :images="page.featured_image_sizes">
             </header-baner>
 
             <!-- CONTENT -->
@@ -42,47 +41,49 @@
 </template>
 
 <script>
-import Page from './../types/Page';
-import PageService from './../services/page.services';
+import { SET_LOADING, FETCH_PAGE_BY_SLUG, SET_PAGE, SET_ABOUT } from './../store/mutation-types';
+import { mapState, mapMutations, mapActions } from 'vuex';
 
-import { GlobalEvents } from './../global-events';
+import Page from './../types/Page';
 
 import HeaderBaner from './HeaderBaner.vue';
 import Footer from './Footer.vue';
 
 export default {
-    data() {
-        return {
-            page: new Page(),
-            loading: {
-                type: Boolean,
-                default: true
-            }
+    computed: {
+        ...mapState([
+            'page',
+            'loading'
+        ])
+    },
+    watch: {
+        loading(val) {
+            if(!val)
+                this.$store.commit(SET_ABOUT, false);
         }
     },
     components: {
-        HeaderBaner,
+        "header-baner": HeaderBaner,
         "page-footer": Footer
     },
-    created() {        
-        this.fetchPage();
+    beforeCreate() {
+        this.$store.commit(SET_LOADING, true);
     },
-    watch: {
-        '$route': 'fetchPage'
+    mounted() {  
+        this.$store.dispatch(FETCH_PAGE_BY_SLUG, 'contact') //TODO: get slug from this.$route
+    },
+    beforeDestroy() {
+        this.$store.commit(SET_PAGE, new Page());
+        this.$store.commit(SET_LOADING, true);
     },
     methods: {
-        fetchPage() {
-            PageService
-                .getPageBySlug('contact')
-                .then(page => {
-                    this.page = page;
-                });  
-        },
-        pageLoaded() {
-            this.loading = false;
-            // this.$emit('loaded');
-            GlobalEvents.$emit('page-loaded');
-        }
+        ...mapMutations([
+            SET_LOADING,
+            SET_ABOUT
+        ]),
+        ...mapActions([
+            FETCH_PAGE_BY_SLUG
+        ])
     }
 }
 </script>

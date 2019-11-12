@@ -15,7 +15,7 @@
                 </figure>
 
                 <div class="c-timeline__text">
-                    <h6 v-if="entry.heading.url"><a :href="entry.heading.url" target="_blank">{{ entry.heading.text }}</a></h6>
+                    <h6 v-if="entry.heading.url"><a :href="entry.heading.url" target="_blank" rel="noopener">{{ entry.heading.text }}</a></h6>
                     <h6 v-else>{{ entry.heading.text }}</h6>
                 
                     <div v-html="entry.content"></div>

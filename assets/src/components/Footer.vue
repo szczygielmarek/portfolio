@@ -8,7 +8,13 @@
 
             <div class="col-2 col-sm-auto text-right">
                 <p>
-                    <a href="https://github.com/szczygielmarek" target="_blank">
+                    <!--
+                    <a href="https://linkedin.com/in/szczygielmarek" target="_blank" rel="noopener" title="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    &nbsp;
+                    -->
+                    <a href="https://github.com/szczygielmarek" target="_blank" rel="noopener" title="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
                 </p>

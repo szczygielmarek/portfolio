@@ -1,12 +1,13 @@
 //styles
 import './scss/style.scss';
 
+import registerServiceWorker from './registerServiceWorker';
+
 //Vue
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 import { store } from './store/store';
-import { GlobalEvents } from './global-events';
 
 const DIST_URL = wp.dist_url;
 Vue.mixin({
@@ -33,7 +34,7 @@ const routes = [
     {path: DIST_URL + 'about', component: About},
     {path: DIST_URL + 'contact', component: Contact},
     {path: DIST_URL + 'portfolio', component: Portfolio},
-    {path: DIST_URL + 'portfolio/:id', component: Project},
+    {path: DIST_URL + 'portfolio/:slug', component: Project},
     //{path: '/portfolio/:id', component: Page}
 ]
 
@@ -48,46 +49,16 @@ var app = new Vue({
     router,
     store,
     data: {
-        options: [],
-        isAbout: false
+        options: []
     },
     components: {
         TopBar
     },
     created() {
         OptionsService.getOptions()
-            .then(options => this.options = options);   
-            
-        GlobalEvents.$on('page-loaded', (slug) => {
-            this.isAbout = (slug && slug === 'about');
-        });    
-    },
-    methods: {
-        onHandleLoaded() {
-            //console.log('loaded');
-        }
+            .then(options => this.options = options);    
     }
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+registerServiceWorker();
